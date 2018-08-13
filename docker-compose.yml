@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+    db:
+      image: postgres
+      ports:
+          - "5432:5432"
+      environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_DB=postgres
+      volumes:
+        - .postgres_data:/var/lib/postgresql/data/
+    web:
+        build: .
+        command: python /code/book/manage.py migrate
+        command: python /code/book/manage.py runserver 0.0.0.0:8002
+        volumes:
+            - .:/code
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
