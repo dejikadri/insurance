@@ -1,1 +1,14 @@
 .idea
+__pycache__/
+*.pyc
+*.pyo
+*.tmp*
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+local_settings.py
+db.sqlite3
+.pytest_cache/
+

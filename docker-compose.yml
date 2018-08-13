@@ -8,15 +8,16 @@ services:
       environment:
           - POSTGRES_USER=postgres
           - POSTGRES_DB=postgres
+          - POSTGRES_PWD=!@#Postgres!@#
       volumes:
         - .postgres_data:/var/lib/postgresql/data/
     web:
         build: .
-        command: python /code/book/manage.py migrate
-        command: python /code/book/manage.py runserver 0.0.0.0:8002
+        command: python /code/insurance/manage.py migrate
+        command: python /code/insurance/manage.py runserver 0.0.0.0:8009
         volumes:
             - .:/code
         ports:
-            - "8000:8000"
+            - "8009:8009"
         depends_on:
             - db
