@@ -1,18 +1,32 @@
 version: "3"
 
 services:
-    db:
+    postgres:
+      restart: always
       image: postgres
       ports:
-          - "5432:5432"
+          - "5433:5433"
       environment:
-          - POSTGRES_USER=postgres
-          - POSTGRES_DB=postgres
-          - POSTGRES_PWD=!@#Postgres!@#
+          - DB_NAME=insurance_db
+          - DB_USER=insurance_user
+          - DB_PASS=!@#Postgres!@#
+          - DB_SERVICE=postgres
+          - DB_PORT=5433
       volumes:
         - .postgres_data:/var/lib/postgresql/data/
+    redis:
+      restart: always
+      image: redis:latest
+      expose:
+        - "6379"
     web:
+        restart: always
         build: .
+        expose:
+          - "8009"
+        links:
+          - postgres:postgres
+          - redis:redis
         command: python /code/insurance/manage.py migrate
         command: python /code/insurance/manage.py runserver 0.0.0.0:8009
         volumes:
@@ -20,4 +34,4 @@ services:
         ports:
             - "8009:8009"
         depends_on:
-            - db
+            - postgres
