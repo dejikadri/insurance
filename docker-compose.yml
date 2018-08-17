@@ -5,13 +5,13 @@ services:
       restart: always
       image: postgres
       ports:
-          - "5433:5433"
+          - "5435:5435"
       environment:
           - DB_NAME=insurance_db
           - DB_USER=insurance_user
-          - DB_PASS=!#Postgres!#
+          - DB_PASS=!#KatMil!#
           - DB_SERVICE=postgres
-          - DB_PORT=5432
+          - DB_PORT=5435
       volumes:
         - .postgres_data:/var/lib/postgresql/data/
     redis:
@@ -27,11 +27,14 @@ services:
         links:
           - postgres:postgres
           - redis:redis
-        command: python /code/insurance/manage.py migrate
-        command: python /code/insurance/manage.py runserver 0.0.0.0:8009
+        command: python /code/insuranceroot/manage.py migrate
+        command: python /code/insuranceroot/manage.py runserver 0.0.0.0:8009
         volumes:
             - .:/code
         ports:
             - "8009:8009"
         depends_on:
             - postgres
+# docker-compose exec -u postgres postgres psql
+# docker-compose run postgres psql -h postgres -U insurance_user -d insurance_db
+# docker-compose run postgres psql -h postgres -U postgres -d test

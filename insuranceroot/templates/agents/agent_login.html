@@ -1,0 +1,34 @@
+{% extends '../common/base2.html'%}
+
+
+{% block content %}
+
+        <div class="col-md-12 form-group form-group-lg ">
+
+
+            <h2 class="alert alert-success " >Agent Login</h2>
+            {% csrf_token %}
+                 <form class="well form-horizontal" action=" " method="POST"  id="contact_form">
+                    <fieldset>
+
+                    <!-- Form Name -->
+                    <legend><center><h2><b>Login</b></h2></center></legend><br>
+
+
+                        {% csrf_token %}
+                        {% include 'agents/form_template.html' %}
+
+                    <div class="form-group">
+                      <label class="col-md-4 control-label"></label>
+                      <div class="col-md-4"><br>
+                        <button type="submit" class="btn btn-lg btn-success" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspLogin <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                      </div>
+                    </div>
+
+                    </fieldset>
+                    </form>
+                    <div class="alert alert-success" role="alert" id="success_message">  &nbsp</div>
+
+        </div>
+
+        {% endblock %}

@@ -1,0 +1,53 @@
+{% extends '../common/base2.html'%}
+
+
+{% block content %}
+<h1>{{customer_id}}</h1>
+        <div class="col-md-12 form-group form-group-lg ">
+
+
+            <h2 class="alert alert-success " >Make Payment</h2>
+                 <form class="well form-horizontal" action=" " method="POST"  id="contact_form">
+                    <fieldset>
+                        {% csrf_token %}
+                        <div class="container">
+                            <div class="col-md-10 ">
+                            <table width="500"  class="table table-bordered table-striped table-hover   ">
+                                <tr><td colspan="3"><h2>Vehicle Information</h2></td></tr>
+                                <tr class="success">
+                                    <td>Registration Number</td>
+                                    <td>Make</td>
+                                    <td>Model</td>
+                                </tr>
+                                <tr>
+                                    <td>{{vehicle.0.registration_no}}</td>
+                                    <td>{{vehicle.0.vehicle_make}}</td>
+                                    <td>{{vehicle.0.vehicle_model}}</td>
+                                </tr>
+                            </table>
+                            </div>
+                        </div>
+                            {% include 'common/form_template.html' %}
+
+                           <!-- <select name="product">
+                                {% for prod in products %}
+                                    <option value={{ prod.price }}>{{ prod.product_code }}</option>
+                                {% endfor %}
+                            </select>
+                        -->
+                        <!--{% for v in vehicle %}-->
+                        <!--{{ v.id }}-->
+                        <!--{%endfor%}-->
+                    <div class="form-group">
+                      <div class="col-md-offset-4 col-md-8 ">
+                        <button type="submit" class="btn  btn-success  well-lg">Pay Premium </button>
+                      </div>
+                    </div>
+
+                    </fieldset>
+                    </form>
+                    <div class="alert alert-success" role="alert" id="success_message">  &nbsp</div>
+
+        </div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% load static %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Insurance</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        {% if request.session.agent_islogged_in %}
+        <li class="text-uppercase bg-primary  "> <a ><strong>Welcome -- Agent {{ request.session.names }}</strong></a></li>
+      </ul>
+
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'agentslogout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+      {% else %}
+       </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'agentslogin' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</nav>
