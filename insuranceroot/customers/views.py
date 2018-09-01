@@ -1,5 +1,6 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.db.models import Q
+
 from .models import Customer
 from . import forms
 from django.views.generic import View, TemplateView, FormView, ListView, DetailView, UpdateView
@@ -55,3 +56,10 @@ class EditUpdateCustomer(UpdateView):
         post = form.save()
         post.save()
         return redirect('customerlist')
+
+class FindCustomer(View):
+    def post(self, request):
+        v_number = request.POST['q']
+        print(request.POST['q'])
+        customers = Customer.objects.filter(Q(first_name__istartswith=v_number) | Q(last_name__istartswith=v_number))
+        return render(request, 'customers/customer_list_by_agent.html', {'customers': customers})

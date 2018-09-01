@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+{% include '../common/load_css.html'%}
+<body>
+{% include '../common/top_nav.html'%}
+
+<div class="container-fluid ">
+  <div class="row content">
+{#{% include '../common/left_nav.html'%}#}
+
+    <div class="col-md-10 text-left">
+        {% block content %}
+            if you see this, something is wrong!
+        {% endblock content %}
+    </div>
+
+  </div>
+</div>
+
+{% include '../common/footer.html' %}
+
+</body>
+</html>

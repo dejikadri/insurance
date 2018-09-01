@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView, FormView, ListView
+from django.db.models import Q
 
 from apputils import appmessages as msg
 from . import forms
@@ -40,6 +41,10 @@ class AgentRegistration(View):
 
     def put(self, request):
         pass
+
+
+class SiteIndex(TemplateView):
+    template_name = 'agents/site_home.html'
 
 
 class AgentLogin(View):
@@ -121,8 +126,18 @@ class AgentListView(ListView):
  #           return Snippet.objects.filter(user=self.request.user)
 
 
-class AnyPage(TemplateView):
+class FindInfo(TemplateView):
     template_name = 'agents/find.html'
+
+
+class FindVehicle(View):
+    def post(self, request):
+        v_number = request.POST['q']
+        print(request.POST['q'])
+        vehicles = Vehicles.objects.filter(Q(policy_number__istartswith=v_number) | Q(registration_no__istartswith=v_number))
+        return render(request, 'vehicles/vehicle_list_by_agent.html', {'vehicles': vehicles})
+
+
 
 # psql postgresql://insurance_user:!#Postgres!#@localhost:5432/insurance_db
 

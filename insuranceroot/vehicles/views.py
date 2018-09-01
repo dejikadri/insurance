@@ -1,9 +1,6 @@
-import sys
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView, FormView, ListView, UpdateView
+from django.db.models import Q
 
 from apputils import appmessages as msg
 from . import forms
@@ -114,3 +111,10 @@ class EditUpdateVehicle(UpdateView):
         post = form.save()
         post.save()
         return redirect('vehiclelist')
+
+class FindVehicle(View):
+    def post(self, request):
+        v_number = request.POST['q']
+        print(request.POST['q'])
+        vehicles = Vehicles.objects.filter(Q(policy_number__istartswith=v_number) | Q(registration_no__istartswith=v_number))
+        return render(request, 'vehicles/vehicle_list_by_agent.html', {'vehicles': vehicles})
