@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^agentslist', AgentListView.as_view(), name='agentslist'),
     url(r'^agentslogin', AgentLogin.as_view(), name='agentslogin'),
     url(r'^agentslogout', AgentLogout.as_view(), name='agentslogout'),
-    url(r'^anypage', AnyPage.as_view(), )
+    url(r'^anypage', AnyPage.as_view(), ),
+    url(r'^$', AnyPage.as_view(), )
 
 ]

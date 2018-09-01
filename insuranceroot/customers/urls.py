@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import AddCustomer, ListCustomerByAgent, CustomerDetail
+from .views import AddCustomer, ListCustomerByAgent, CustomerDetail, EditUpdateCustomer
 
 
 urlpatterns = [
@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^addcustomer/', AddCustomer.as_view(), name='addcustomer'),
     url(r'^customerlist/', ListCustomerByAgent.as_view(), name='customerlist'),
     url(r'^customerdetail/(?P<pk>[0-9]+)$', CustomerDetail.as_view(), name='customerdetail'),
+    url(r'^updatecustomer/(?P<pk>\d+)/', EditUpdateCustomer.as_view(), name='updatecustomer'),
 
 ]

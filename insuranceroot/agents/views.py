@@ -122,7 +122,7 @@ class AgentListView(ListView):
 
 
 class AnyPage(TemplateView):
-    template_name = 'agents/agent_landing_page.html'
+    template_name = 'agents/find.html'
 
 # psql postgresql://insurance_user:!#Postgres!#@localhost:5432/insurance_db
 

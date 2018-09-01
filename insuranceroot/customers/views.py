@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Customer
 from . import forms
-from django.views.generic import View, TemplateView, FormView, ListView, DetailView
+from django.views.generic import View, TemplateView, FormView, ListView, DetailView, UpdateView
 
 
 class AddCustomer(View):
@@ -44,3 +44,14 @@ class CustomerDetail(DetailView):
 
     # def get_queryset(self):
     # return Customer.objects.filter(id=self.request['pk'])
+
+
+class EditUpdateCustomer(UpdateView):
+    model = Customer
+    fields = ['first_name', 'last_name', 'phone_number', 'email', ]
+    template_name = 'common/form_info.html'
+
+    def form_valid(self, form):
+        post = form.save()
+        post.save()
+        return redirect('customerlist')

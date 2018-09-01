@@ -29,7 +29,7 @@
                            <td>{{ vehicle.registration_no }}</td>
                            <td>{{ vehicle.vehicle_make }}</td>
                            <td>{{ vehicle.vehicle_model }}</td>
-                           <td><a href="{#{% url 'customerdetail' pk=customer.id %}#}" class="btn btn-sm btn-info" role="button">Edit Vehicle Details</a></td>
+                           <td><a href="{% url 'updatevehicle' pk=vehicle.id %}" class="btn btn-sm btn-info" role="button">Edit Vehicle Details</a></td>
                            <td><a href="{% url 'addpayment' vehicle_id=vehicle.id %}" class="btn btn-sm btn-info" role="button">Add Payment </a></td>
 
                        <tr/>

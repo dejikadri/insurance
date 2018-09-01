@@ -25,7 +25,7 @@
                            <td>{{ pay.policy_number }} </td>
                            <td>{{ pay.amount }}</td>
                            <td>{{ pay.payment_date }}</td>
-                           <td><a href="{#{% url 'customerdetail' pk=customer.id %}#}" class="btn btn-sm btn-info" role="button">Edit Payment Details</a></td>
+                           <td><a href="{% url 'updatepayment' pk=pay.id %}" class="btn btn-sm btn-info" role="button">Edit Payment Details</a></td>
 
                        <tr/>
 

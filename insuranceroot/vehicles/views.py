@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.forms.models import model_to_dict
 from django.shortcuts import render, redirect
-from django.views.generic import View, TemplateView, FormView, ListView
+from django.views.generic import View, TemplateView, FormView, ListView, UpdateView
 
 from apputils import appmessages as msg
 from . import forms
@@ -93,3 +93,24 @@ class MakePayment(TemplateView):
             print(amount, "xxxxxx", customer_id)
             return redirect('vehiclelist')
 
+
+class EditUpdatePayment(UpdateView):
+    model = Payment
+    fields = ['policy_number', 'amount', ]
+    template_name = 'common/form_info.html'
+
+    def form_valid(self, form):
+        post = form.save()
+        post.save()
+        return redirect('paymentlist')
+
+
+class EditUpdateVehicle(UpdateView):
+    model = Vehicles
+    fields = ['policy_number', 'engine_no', 'registration_no', 'vehicle_make', 'vehicle_model', ]
+    template_name = 'common/form_info.html'
+
+    def form_valid(self, form):
+        post = form.save()
+        post.save()
+        return redirect('vehiclelist')

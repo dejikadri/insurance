@@ -27,7 +27,7 @@
                            <td>{{ customer.last_name }}</td>
                            <td>{{ customer.email }}</td>
                            <td>{{ customer.phone_number }}</td>
-                           <td><a href="{% url 'customerdetail' pk=customer.id %}" class="btn btn-sm btn-info" role="button">Edit Customer Details</a></td>
+                           <td><a href="{% url 'updatecustomer' pk=customer.id %}" class="btn btn-sm btn-info" role="button">Edit Customer Details</a></td>
                            <td><a href="{% url 'addvehicle' customer_id=customer.id %}" class="btn btn-sm btn-info" role="button">Add Vehicle Policy</a></td>
 
                        <tr/>
