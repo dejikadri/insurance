@@ -118,3 +118,5 @@ class FindVehicle(View):
         print(request.POST['q'])
         vehicles = Vehicles.objects.filter(Q(policy_number__istartswith=v_number) | Q(registration_no__istartswith=v_number))
         return render(request, 'vehicles/vehicle_list_by_agent.html', {'vehicles': vehicles})
+
+

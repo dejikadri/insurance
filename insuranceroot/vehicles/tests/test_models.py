@@ -1,29 +1,31 @@
 from django.test import TestCase
-from insuranceroot.agents.models import Agent
+from ..models import Vehicles
 
 
 class AgentModelTest(TestCase):
     def setUp(self):
-        agent_mike = Agent.objects.create(
-            first_name='Mike',
-            last_name='Smith',
-            email='msmith@insure-i.com',
-            phone_number='0800-000-0002',
+        agent_mike = Vehicles.objects.create(
+            registration_no='Reg8',
+            agent_id=1,
+            customer_id=1,
+            vehicle_make='Honda',
+            vehicle_model='civic',
         )
         agent_mike.save()
 
-    def test_create_agent(self):
-        new_agent = Agent.objects.create(
-            first_name='Emeka',
-            last_name='George',
-            email='egeorge@abc.com',
-            phone_number='0800-111-0002',
+    def test_create_vehicle(self):
+        new_agent = Vehicles.objects.create(
+            registration_no='Reg9',
+            agent_id=1,
+            customer_id=1,
+            vehicle_make='Honda',
+            vehicle_model='Accord',
         )
         new_agent.save()
 
-        count_agent = Agent.objects.all()
+        count_agent = Vehicles.objects.all()
         self.assertEqual(2, count_agent.count())
 
-    def test_retrieve_agent(self):
-        get_agent_mike = Agent.objects.get(email='msmith@insure-i.com')
-        self.assertEqual('msmith@insure-i.com', get_agent_mike.email)
+    def test_retrieve_vehicle(self):
+        get_vehicle = Vehicles.objects.get(registration_no='Reg8')
+        self.assertEqual('Honda', get_vehicle.vehicle_make)

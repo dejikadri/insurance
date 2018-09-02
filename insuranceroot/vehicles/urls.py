@@ -6,6 +6,7 @@ from .views import VehicleInfo, ListVehicleByAgent,ListPaymentsByAgent, MakePaym
 urlpatterns = [
     url(r'^addvehicle/(?P<customer_id>\d+)/', VehicleInfo.as_view(), name='addvehicle'),
     url(r'^findvehicle/', FindVehicle.as_view(), name='findvehicle'),
+    url(r'^cert/', FindVehicle.as_view(), name='cert'),
     url(r'^vehiclelist/', ListVehicleByAgent.as_view(), name='vehiclelist'),
     url(r'^updatevehicle/(?P<pk>\d+)/', EditUpdateVehicle.as_view(), name='updatevehicle'),
     url(r'^paymentlist/', ListPaymentsByAgent.as_view(), name='paymentlist'),

@@ -9,6 +9,16 @@
 
 
             <h2 class="alert alert-success " >Vehicle List</h2>
+
+            <div class="col-md-offset-4 col-md-4">
+                    <form action="{% url 'findvehicle' %}" method="POST">
+                        {% csrf_token %}
+
+                        <input name="q" type="text">
+                        <button  type="submit" class="btn btn-lg btn-info" role="button">Find  Vehicle</button>
+                    </form>
+                </div>
+
                                  <table class=" table-hover table table-striped  "  >
                     <thead>
                         <tr>
@@ -29,10 +39,13 @@
                            <td>{{ vehicle.registration_no }}</td>
                            <td>{{ vehicle.vehicle_make }}</td>
                            <td>{{ vehicle.vehicle_model }}</td>
-                           <td><a href="{% url 'updatevehicle' pk=vehicle.id %}" class="btn btn-sm btn-info" role="button">Edit Vehicle Details</a></td>
+                           <td><a href="{% url 'updatevehicle' pk=vehicle.id %}" class="btn btn-sm btn-info" role="button">Edit  </a></td>
                            <td><a href="{% url 'addpayment' vehicle_id=vehicle.id %}" class="btn btn-sm btn-info" role="button">Add Payment </a></td>
+                           <td><a href="{% url 'certificate' id=vehicle.id %}" class="btn btn-sm btn-info" role="button">Certificate </a></td>
 
                        <tr/>
+                           {% empty %}
+                            <h4>No matching Vehicle</h4>
 
                     {% endfor %}
 

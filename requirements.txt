@@ -1,5 +1,6 @@
 Django==1.11
 pytz==2017.2
+django-tastypie
 psycopg2
 redis
 django-redis==4.3.0

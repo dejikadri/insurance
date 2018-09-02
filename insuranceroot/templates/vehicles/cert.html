@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table align="center">
+    <tr>
+        <td>
+            <div style="width:800px; height:600px; padding:20px; text-align:center; border: 10px solid #787878">
+            <div style="width:750px; height:550px; padding:20px; text-align:center; border: 5px solid #787878">
+                   <span style="font-size:50px; font-weight:bold">Motor Third Party Vehicle Certificate</span>
+                   <br><br>
+                   <span style="font-size:25px"><i>For Owner</i></span>
+                   <br><br>
+                   <span style="font-size:30px"><b>{{ customer.first_name }} {{ customer.last_name }}</b></span><br/><br/>
+                   <span style="font-size:25px"><i>With Vehicle Details Below</i></span> <br/><br/>
+                   <span style="font-size:30px">Registration Number: {{ vehicles.registration_no }}</span> <br/><br/>
+                   <span style="font-size:20px">Policy Number: <b>{{ vehicles.policy_number }}</b></span> <br/><br/><br/><br/>
+                   <span style="font-size:25px"><i>Policy Expiry Date</i></span><br>
+
+                  <span style="font-size:30px">2019-05-02</span>
+            </div>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

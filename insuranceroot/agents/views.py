@@ -8,6 +8,8 @@ from apputils import appmessages as msg
 from . import forms
 from . import helper_utils
 from .models import Agent
+from vehicles.models import Vehicles
+from customers.models import Customer
 
 
 class AgentRegistration(View):
@@ -133,10 +135,18 @@ class FindInfo(TemplateView):
 class FindVehicle(View):
     def post(self, request):
         v_number = request.POST['q']
-        print(request.POST['q'])
         vehicles = Vehicles.objects.filter(Q(policy_number__istartswith=v_number) | Q(registration_no__istartswith=v_number))
         return render(request, 'vehicles/vehicle_list_by_agent.html', {'vehicles': vehicles})
 
+class Certificate(View):
+    def get(self, request, id):
+
+        vehicles = Vehicles.objects.get(id=id)
+        customer = Customer.objects.get(id=vehicles.customer_id)
+        cert_info = {'customer': customer, 'vehicles': vehicles}
+
+        return render(request, 'vehicles/cert.html', cert_info)
+        #return  HttpResponse(str(vehicles)+'  ---  '+str(customer))
 
 
 # psql postgresql://insurance_user:!#Postgres!#@localhost:5432/insurance_db
