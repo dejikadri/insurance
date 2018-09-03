@@ -1,10 +1,17 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from .views import VehicleInfo, ListVehicleByAgent,ListPaymentsByAgent, MakePayment, \
     EditUpdatePayment, EditUpdateVehicle, FindVehicle
+
+from tastypie.api import Api
+from .api import VehicleResource
+
+v1_api = Api(api_name='v1')
+v1_api.register(VehicleResource())
 
 
 urlpatterns = [
     url(r'^addvehicle/(?P<customer_id>\d+)/', VehicleInfo.as_view(), name='addvehicle'),
+    url(r'^api/', include(v1_api.urls) ),
     url(r'^findvehicle/', FindVehicle.as_view(), name='findvehicle'),
     url(r'^cert/', FindVehicle.as_view(), name='cert'),
     url(r'^vehiclelist/', ListVehicleByAgent.as_view(), name='vehiclelist'),

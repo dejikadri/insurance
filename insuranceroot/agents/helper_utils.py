@@ -1,5 +1,6 @@
 from .models import Agent
 from passlib.hash import sha512_crypt
+from random import randint
 
 
 def success_msg(msg):
@@ -10,7 +11,8 @@ def error_msg(msg):
     return {"status": "error", "message": msg}
 
 
-def gen_policy_number():
+def gen_agent_number(first_name, last_name):
+    
     pass
 
 
