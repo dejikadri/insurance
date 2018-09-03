@@ -12,8 +12,7 @@ def error_msg(msg):
 
 
 def gen_agent_number(first_name, last_name):
-    
-    pass
+    return first_name[:2].upper()+'-'+last_name[:2].upper()+'-'+str(randint(212451, 8961621))
 
 
 def auth_login(username, password):

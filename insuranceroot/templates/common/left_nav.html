@@ -2,6 +2,7 @@
     <div class="col-md-2 sidenav">
         <ul class="nav nav-pills navbar-inverse  nav-stacked">
           <li class="active"><a href="#"><h4>Policy Management</h4></a></li>
+          <li ><a href="{% url 'editagentprofile'  pk=request.session.agent_id  %}   ">Edit My Profile</a></li>
           <li><a href="{% url 'addcustomer' %}">Add Policy/Customer</a></li>
           <li><a href="{% url 'customerlist' %}">List Customer</a></li>
           <li><a href="{% url 'vehiclelist' %}">List Vehicles</a></li>

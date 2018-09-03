@@ -120,3 +120,16 @@ class FindVehicle(View):
         return render(request, 'vehicles/vehicle_list_by_agent.html', {'vehicles': vehicles})
 
 
+# def get_recipes():
+#     # Queries 3 tables: cookbook_recipe, cookbook_ingredient,
+#     # and cookbook_food.
+#     return list(Recipe.objects.prefetch_related('ingredient_set__food'))
+#
+# CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+#
+#
+# @cache_page(CACHE_TTL)
+# def recipes_view(request):
+#     return render(request, 'cookbook/recipes.html', {
+#         'recipes': get_recipes()
+#     })

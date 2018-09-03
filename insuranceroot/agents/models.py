@@ -4,6 +4,7 @@ from django.db import models
 class Agent(models.Model):
     first_name = models.CharField(max_length=120)
     last_name = models.CharField(max_length=100)
+    agent_number = models.CharField(max_length=25)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=700)
     phone_number = models.CharField(max_length=30)

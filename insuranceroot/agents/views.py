@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
-from django.views.generic import View, TemplateView, FormView, ListView
+from django.views.generic import View, TemplateView, FormView, ListView, UpdateView
 from django.db.models import Q
 
 from apputils import appmessages as msg
@@ -27,11 +27,13 @@ class AgentRegistration(View):
             if not email_exists_status:
                 first_name = form.cleaned_data.get('first_name')
                 last_name = form.cleaned_data.get('last_name')
+                agent_number = helper_utils.gen_agent_number(first_name, last_name)
+
                 email = form.cleaned_data.get('email')
                 password = helper_utils.sha512_crypt.encrypt(form.cleaned_data.get('password'))
                 phone_number = form.cleaned_data.get('phone_number')
 
-                Agent.objects.create(first_name=first_name, last_name=last_name,
+                Agent.objects.create(first_name=first_name, last_name=last_name, agent_number=agent_number,
                                      email=email, password=password, phone_number=phone_number)
                 # TODO redirect to an appropriate file e.g agent landing
                 # TODO set the necessary session values, agentid, names, isloggedin and email as in AgentLogin Below
@@ -84,6 +86,16 @@ class AgentLogout(View):
         #request.session.flush()
         return redirect('agentslogin')
 
+
+class EditUpdateAgent(UpdateView):
+    model = Agent
+    fields = ['first_name', 'last_name',  'email', 'phone_number', ]
+    template_name = 'common/form_info.html'
+
+    def form_valid(self, form):
+        post = form.save()
+        post.save()
+        return redirect('vehiclelist')
 
 class RegAgentDjangoForm(FormView):
     model = Agent
