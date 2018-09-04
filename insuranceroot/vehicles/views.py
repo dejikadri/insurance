@@ -3,13 +3,15 @@ from django.views.generic import View, TemplateView, FormView, ListView, UpdateV
 from django.db.models import Q
 
 from apputils import appmessages as msg
+from apputils.mixins import AgentIsLoggedInMixin
+
 from . import forms
 from .models import Vehicles, Product, Agent, Customer, Payment
 
 from . import v_helper
 
 
-class VehicleInfo(View):
+class VehicleInfo(AgentIsLoggedInMixin, View):
     def get(self, request, customer_id):
         form = forms.VehiclesForm()
 
@@ -37,15 +39,18 @@ class VehicleInfo(View):
             return render(request, 'vehicles/vehicle_info.html', {'form': form, })
 
 
-class ListVehicleByAgent(ListView):
+class ListVehicleByAgent(AgentIsLoggedInMixin, ListView):
     # model = Customer
     context_object_name = 'vehicles'
     template_name = 'vehicles/vehicle_list_by_agent.html'
 
+    def dispatch(self, *args, **kwargs):
+        return super(ListVehicleByAgent, self).dispatch(*args, **kwargs)
+
     def get_queryset(self):
         return Vehicles.objects.filter(agent_id=self.request.session['agent_id'])
 
-class ListPaymentsByAgent(ListView):
+class ListPaymentsByAgent(AgentIsLoggedInMixin, ListView):
     # model = Customer
     context_object_name = 'payments'
     template_name = 'payments/payment_list_by_agent.html'
@@ -54,7 +59,7 @@ class ListPaymentsByAgent(ListView):
         return Payment.objects.filter(agent_id=self.request.session['agent_id'])
 
 
-class MakePayment(TemplateView):
+class MakePayment(AgentIsLoggedInMixin, TemplateView):
     def get(self, request, vehicle_id):
         form = forms.PaymentForm()
         products = Product.objects.all()
@@ -91,7 +96,7 @@ class MakePayment(TemplateView):
             return redirect('vehiclelist')
 
 
-class EditUpdatePayment(UpdateView):
+class EditUpdatePayment(AgentIsLoggedInMixin, UpdateView):
     model = Payment
     fields = ['policy_number', 'amount', ]
     template_name = 'common/form_info.html'
@@ -102,7 +107,7 @@ class EditUpdatePayment(UpdateView):
         return redirect('paymentlist')
 
 
-class EditUpdateVehicle(UpdateView):
+class EditUpdateVehicle(AgentIsLoggedInMixin, UpdateView):
     model = Vehicles
     fields = ['policy_number', 'engine_no', 'registration_no', 'vehicle_make', 'vehicle_model', ]
     template_name = 'common/form_info.html'
@@ -112,7 +117,7 @@ class EditUpdateVehicle(UpdateView):
         post.save()
         return redirect('vehiclelist')
 
-class FindVehicle(View):
+class FindVehicle(AgentIsLoggedInMixin, View):
     def post(self, request):
         v_number = request.POST['q']
         print(request.POST['q'])

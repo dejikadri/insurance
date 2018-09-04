@@ -1,15 +1,18 @@
-from django.http import HttpResponse
+
 from django.contrib.auth import logout
+from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView, FormView, ListView, UpdateView
-from django.db.models import Q
+from vehicles.models import Vehicles
 
 from apputils import appmessages as msg
+from apputils.mixins import AgentIsLoggedInMixin
+from customers.models import Customer
+
 from . import forms
 from . import helper_utils
 from .models import Agent
-from vehicles.models import Vehicles
-from customers.models import Customer
 
 
 class AgentRegistration(View):
@@ -87,7 +90,7 @@ class AgentLogout(View):
         return redirect('agentslogin')
 
 
-class EditUpdateAgent(UpdateView):
+class EditUpdateAgent(AgentIsLoggedInMixin, UpdateView):
     model = Agent
     fields = ['first_name', 'last_name',  'email', 'phone_number', ]
     template_name = 'common/form_info.html'
@@ -122,7 +125,7 @@ def base2(request):
     return render(request, 'common/base2.html')
 
 
-class AgentListView(ListView):
+class AgentListView(AgentIsLoggedInMixin,  ListView):
     model = Agent
     context_object_name = 'agents'
     template_name = 'agents/agent_list.html'
@@ -144,13 +147,13 @@ class FindInfo(TemplateView):
     template_name = 'agents/find.html'
 
 
-class FindVehicle(View):
+class FindVehicle(AgentIsLoggedInMixin, View):
     def post(self, request):
         v_number = request.POST['q']
         vehicles = Vehicles.objects.filter(Q(policy_number__istartswith=v_number) | Q(registration_no__istartswith=v_number))
         return render(request, 'vehicles/vehicle_list_by_agent.html', {'vehicles': vehicles})
 
-class Certificate(View):
+class Certificate(AgentIsLoggedInMixin, View):
     def get(self, request, id):
 
         vehicles = Vehicles.objects.get(id=id)

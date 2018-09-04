@@ -4,9 +4,10 @@ from django.db.models import Q
 from .models import Customer
 from . import forms
 from django.views.generic import View, TemplateView, FormView, ListView, DetailView, UpdateView
+from apputils.mixins import AgentIsLoggedInMixin
 
 
-class AddCustomer(View):
+class AddCustomer(AgentIsLoggedInMixin, View):
     def get(self, request):
         form = forms.CustomerForm()
         context = {'form': form}
@@ -28,7 +29,7 @@ class AddCustomer(View):
             return redirect('customerlist')
 
 
-class ListCustomerByAgent(ListView):
+class ListCustomerByAgent(AgentIsLoggedInMixin, ListView):
     # model = Customer
     context_object_name = 'customers'
     template_name = 'customers/customer_list_by_agent.html'
@@ -37,7 +38,7 @@ class ListCustomerByAgent(ListView):
         return Customer.objects.filter(agent_id=self.request.session['agent_id'])
 
 
-class CustomerDetail(DetailView):
+class CustomerDetail(AgentIsLoggedInMixin, DetailView):
     model = Customer
 
     # template_name = 'customers/customer_detail.html'
@@ -47,7 +48,7 @@ class CustomerDetail(DetailView):
     # return Customer.objects.filter(id=self.request['pk'])
 
 
-class EditUpdateCustomer(UpdateView):
+class EditUpdateCustomer(AgentIsLoggedInMixin, UpdateView):
     model = Customer
     fields = ['first_name', 'last_name', 'phone_number', 'email', ]
     template_name = 'common/form_info.html'
@@ -57,7 +58,7 @@ class EditUpdateCustomer(UpdateView):
         post.save()
         return redirect('customerlist')
 
-class FindCustomer(View):
+class FindCustomer(AgentIsLoggedInMixin, View):
     def post(self, request):
         v_number = request.POST['q']
         print(request.POST['q'])

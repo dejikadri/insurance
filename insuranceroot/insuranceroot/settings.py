@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'insuranceroot.middleware.LogToFileMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -150,3 +151,10 @@ STATICFILES_DIRS = [
 
 ]
 
+LOGIN_URL = 'agents/agentslogin/'
+
+LOGIN_EXEMPT_URLS = (
+   r'^agentslogout/$',
+   r'^agentregistration/$',
+
+)
