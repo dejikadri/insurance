@@ -1,3 +1,6 @@
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page
 
 from django.contrib.auth import logout
 from django.db.models import Q
@@ -13,6 +16,8 @@ from customers.models import Customer
 from . import forms
 from . import helper_utils
 from .models import Agent
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 class AgentRegistration(View):
@@ -163,7 +168,16 @@ class Certificate(AgentIsLoggedInMixin, View):
         return render(request, 'vehicles/cert.html', cert_info)
         #return  HttpResponse(str(vehicles)+'  ---  '+str(customer))
 
+def get_cars():
+    # Queries 3 tables: cookbook_recipe, cookbook_ingredient,
+    # and cookbook_food.
+    return Vehicles.objects.all()
 
+@cache_page(CACHE_TTL)
+def car_view(request):
+    return render(request, 'agents/cars.html', {
+        'cars': get_cars()
+    })
 # psql postgresql://insurance_user:!#Postgres!#@localhost:5432/insurance_db
 
 

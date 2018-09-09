@@ -92,7 +92,6 @@ class MakePayment(AgentIsLoggedInMixin, TemplateView):
             vehicle.policy_number = policy_number
             vehicle.save(update_fields=['policy_number'])
 
-            print(amount, "xxxxxx", customer_id)
             return redirect('vehiclelist')
 
 
