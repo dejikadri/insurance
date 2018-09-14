@@ -10,6 +10,7 @@ class AgentModelTest(TestCase):
             customer_id=1,
             vehicle_make='Honda',
             vehicle_model='civic',
+            policy_number='pol88'
         )
         agent_mike.save()
 
@@ -20,6 +21,8 @@ class AgentModelTest(TestCase):
             customer_id=1,
             vehicle_make='Honda',
             vehicle_model='Accord',
+            policy_number='pol99'
+
         )
         new_agent.save()
 

@@ -77,6 +77,7 @@ class AgentLogin(View):
                 request.session['email'] = form.cleaned_data.get('email')
                 agent_info = Agent.objects.get(email=form.cleaned_data.get('email'))
                 request.session['agent_id'] = agent_info.id
+                request.session['agent_number'] = agent_info.agent_number
                 request.session['names'] = f'{agent_info.first_name} - {agent_info.last_name}'
                 request.session['agent_islogged_in'] = True
                 return redirect('customerlist')
